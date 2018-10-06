@@ -57,9 +57,9 @@ class Doctor(models.Model):
 class Diagnosis(models.Model):
     diagnosis_name = models.CharField(max_length=256)
     diagnosis_description = models.CharField(max_length=2048)
-    diet_change = models.ManyToMany(Diet, blank=True, null=True)
-    environment_warnings = models.ManyToMany(Environment, blank=True, null=True)
-    activity_warnings = models.ManyToMany(Actions, blank=True, null=True)
+    diet_change = models.ManyToManyField(Diet, blank=True, null=True)
+    environment_warnings = models.ManyToManyField(Environment, blank=True, null=True)
+    activity_warnings = models.ManyToManyField(Actions, blank=True, null=True)
 
     def __str__(self):
         return self.diagnosis_name
@@ -90,9 +90,9 @@ class Treatment(models.Model):
     dosage = models.CharField(max_length=256, blank=True, null=True)
     cycle = models.CharField(max_length=256)
     purpose = models.CharField(max_length=2048)
-    diet_change = models.ManyToMany(Diet, blank=True, null=True)
-    environment_warnings = models.ManyToMany(Environment, blank=True, null=True)
-    activity_warnings = models.ManyToMany(Actions, blank=True, null=True)
+    diet_change = models.ManyToManyField(Diet, blank=True, null=True)
+    environment_warnings = models.ManyToManyField(Environment, blank=True, null=True)
+    activity_warnings = models.ManyToManyField(Actions, blank=True, null=True)
 
     def __str__(self):
         return self.prescription
@@ -104,9 +104,9 @@ class Treatment(models.Model):
 class Visit(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    diagnosis = models.ManyToMany(Diagnosis.CASCADE)
+    diagnosis = models.ManyToManyField(Diagnosis.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    treatment = models.ManyToMany(Treatment, blank=True, null=True)
+    treatment = models.ManyToManyField(Treatment, blank=True, null=True)
 
     def __str__(self):
         return "Visit | " + self.date.__str__() + ' | ' + self.patient.last_name + ", " + self.patient.first_name
