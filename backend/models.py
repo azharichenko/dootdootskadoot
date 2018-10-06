@@ -104,7 +104,7 @@ class Treatment(models.Model):
 class Visit(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    diagnosis = models.ManyToManyField(Diagnosis.CASCADE)
+    diagnosis = models.ManyToManyField(Diagnosis)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     treatment = models.ManyToManyField(Treatment, blank=True, null=True)
 
