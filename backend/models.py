@@ -10,6 +10,9 @@ class Diet(models.Model):
     def __str__(self):
         return self.activity
 
+    class Meta:
+        ordering = ["activity"]
+
 
 # Environment Warnings
 class Environment(models.Model):
@@ -20,6 +23,9 @@ class Environment(models.Model):
     def __str__(self):
         return self.activity
 
+    class Meta:
+        ordering = ["activity"]
+
 
 # Activity Warnings
 class Actions(models.Model):
@@ -29,6 +35,9 @@ class Actions(models.Model):
 
     def __str__(self):
         return self.activity
+
+    class Meta:
+        ordering = ["activity"]
 
 
 class Doctor(models.Model):
@@ -41,6 +50,9 @@ class Doctor(models.Model):
     def __str__(self):
         return "Dr. " + self.first_name + " " + self.last_name + " ID: " + self.id
 
+    class Meta:
+        ordering = ["last_name", "first_name"]
+
 
 class Diagnosis(models.Model):
     diagnosis_name = models.CharField(max_length=256)
@@ -52,6 +64,9 @@ class Diagnosis(models.Model):
     def __str__(self):
         return self.diagnosis_name
 
+    class Meta:
+        ordering = ["diagnosis_name"]
+
 
 class Patient(models.Model):
     first_name = models.CharField(max_length=50)
@@ -59,10 +74,13 @@ class Patient(models.Model):
     email = models.CharField(max_length=50, blank=True, null=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     primary_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=True, null=True)
-    id = models.CharField(max_length=50)
+    id = models.CharField(max_length=50, primary_key=True)
 
     def __str__(self):
         return self.last_name + ", " + self.first_name + " ID: " + self.id
+
+    class Meta:
+        ordering = ["last_name", "first_name"]
 
 
 class Treatment(models.Model):
@@ -79,6 +97,9 @@ class Treatment(models.Model):
     def __str__(self):
         return self.prescription
 
+    class Meta:
+        ordering = ["prescription"]
+
 
 class Visit(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
@@ -89,3 +110,6 @@ class Visit(models.Model):
 
     def __str__(self):
         return "Visit | " + self.date.__str__() + ' | ' + self.patient.last_name + ", " + self.patient.first_name
+
+    class Meta:
+        ordering = ["date"]
