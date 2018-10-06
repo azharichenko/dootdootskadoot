@@ -4,6 +4,7 @@ import requests
 
 from backend.models import *
 
+
 def send_to_twilio(id):
     visit = Visit.objects.filter(id = id).first()
     payload = \
