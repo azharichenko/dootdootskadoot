@@ -7,6 +7,13 @@ class Diet(models.Model):
     activity = models.CharField(max_length=256)
     purpose = models.CharField(max_length=2048)
 
+    def to_dict(self):
+        return{
+            'name': self.activity,
+            'description': self.purpose,
+            'encouraged': str(self.encouraged)
+        }
+
     def __str__(self):
         return self.activity
 
@@ -20,6 +27,13 @@ class Environment(models.Model):
     activity = models.CharField(max_length=256)
     purpose = models.CharField(max_length=2048)
 
+    def to_dict(self):
+        return{
+            'name': self.activity,
+            'description': self.purpose,
+            'encouraged': str(self.encouraged)
+        }
+
     def __str__(self):
         return self.activity
 
@@ -32,6 +46,13 @@ class Actions(models.Model):
     encouraged = models.BooleanField(default=False)
     activity = models.CharField(max_length=256)
     purpose = models.CharField(max_length=2048)
+
+    def to_dict(self):
+        return{
+            'name': self.activity,
+            'description': self.purpose,
+            'encouraged': str(self.encouraged)
+        }
 
     def __str__(self):
         return self.activity
@@ -61,14 +82,14 @@ class Diagnosis(models.Model):
     environment_warnings = models.ManyToManyField(Environment, blank=True, null=True)
     activity_warnings = models.ManyToManyField(Actions, blank=True, null=True)
 
-    def __str__(self):
-        return self.diagnosis_name
-
     def to_dict(self):
-        return  {
+        return{
             'name': self.diagnosis_name,
             'description': self.diagnosis_description
         }
+
+    def __str__(self):
+        return self.diagnosis_name
 
     class Meta:
         ordering = ["diagnosis_name"]
@@ -99,6 +120,17 @@ class Treatment(models.Model):
     diet_change = models.ManyToManyField(Diet, blank=True, null=True)
     environment_warnings = models.ManyToManyField(Environment, blank=True, null=True)
     activity_warnings = models.ManyToManyField(Actions, blank=True, null=True)
+
+    def to_dict(self):
+        return{
+            'name': self.prescription,
+            'duration': self.duration,
+            'dosage': self.dosage,
+            'cycle': self.cycle,
+            'diet_change': self.diet_change,
+            'environment_warnings': self.environment_warnings,
+            'activity_warnings': self.activity_warnings
+        }
 
     def __str__(self):
         return self.prescription
