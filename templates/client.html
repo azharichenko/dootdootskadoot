@@ -17,23 +17,36 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Title</a>
+        <a class="navbar-brand" href="#">Client Portal</a>
     </nav>
     <div class="container">
-        <!--  <h1>{{ patient.name }}</h1> BOOM! NAME TEMPLATES TODO: Add patient and doctor columns -->
+
+        <div class="row align-items-center">
+            <div class="col">
+              <br>{{ patient.name }}<br>
+            </div>
+            <div class="col">
+              <br>{{ doctor.name }}: {{ doctor.email }}, {{ doctor.phone_number }}<br>
+            </div>
+        </div>
+
         <div class="accordion" id="accordionExample">
           <div class="card">
-            <div class="card-header" id="headingOne">
+              <div class="card-header" id="headingOne">
               <h5 class="mb-0">
+                  {% if diagnosis %}
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Diagnosis
                 </button>
+                  {% endif %}
               </h5>
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
-                Enter Diagnosis and brief description here!
+                  {% for d in diagnosis %}
+                    {{ d.name }}: {{ d.description }}<br>
+                  {% endfor %}
               </div>
             </div>
           </div>
@@ -43,50 +56,68 @@
           <div class="card">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
+                  {% if treatment %}
                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                   Treatment
                 </button>
+                  {% endif %}
               </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body">
                   <p>
+                        {% if treatment %}
                       <a class="btn btn-primary" data-toggle="collapse" href="#Prescription" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Prescription</a>
+                      {% endif %}
+                      {% if activity %}
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Activities" aria-expanded="false" aria-controls="multiCollapseExample2">Activities</button>
-                    </p>
+                      {% endif %}
+                  </p>
                     <div class="row">
                       <div class="col">
                         <div class="collapse multi-collapse" id="Prescription">
                           <div class="card card-body">
-                           Enter Prescription here!
+                              {% for t in treatment %}
+                           Prescription: {{ t.dosage }} {{ t.name }} {{ t.cycle }} for {{ t.duration }} days.<br>
+                          {% endfor %}
                           </div>
                         </div>
                       </div>
                       <div class="col">
                         <div class="collapse multi-collapse" id="Activities">
                           <div class="card card-body">
-                            Enter Activities here!
+                            {% for a in activity %}
+                              {{ a.name }}: {{ a.description }}<br>
+                          {% endfor %}
                           </div>
                         </div>
                       </div>
                     </div>
 
                   <p>
+                        {% if diet %}
                       <a class="btn btn-primary" data-toggle="collapse" href="#Diet" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Diet</a>
+                      {% endif %}
+                      {% if environment %}
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Environment" aria-expanded="false" aria-controls="multiCollapseExample2">Environment</button>
-                    </p>
+                        {% endif %}
+                  </p>
                     <div class="row">
                       <div class="col">
                         <div class="collapse multi-collapse" id="Diet">
                           <div class="card card-body">
-                           Enter Diet here!
+                              {% for d in diet%}
+                           {{ d }}<br>
+                              {% endfor %}
                           </div>
                         </div>
                       </div>
                       <div class="col">
                         <div class="collapse multi-collapse" id="Environment">
                           <div class="card card-body">
-                            Enter Environment here!
+                                  {% for env in environment %}
+                                        {{ env }}<br>
+                                  {% endfor %}
                           </div>
                         </div>
                       </div>

@@ -127,10 +127,7 @@ class Treatment(models.Model):
             'name': self.prescription,
             'duration': self.duration,
             'dosage': self.dosage,
-            'cycle': self.cycle,
-            'diet_change': self.diet_change,
-            'environment_warnings': self.environment_warnings,
-            'activity_warnings': self.activity_warnings
+            'cycle': self.cycle
         }
 
     def __str__(self):
