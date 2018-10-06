@@ -86,7 +86,7 @@ class Patient(models.Model):
 class Treatment(models.Model):
     prescription = models.CharField(max_length=256)
     high_priority = models.BooleanField(default=False)
-    duration = models.CharField(max_length=256)
+    duration = models.CharField(max_length=50)
     dosage = models.CharField(max_length=256, blank=True, null=True)
     cycle = models.CharField(max_length=256)
     purpose = models.CharField(max_length=2048)
