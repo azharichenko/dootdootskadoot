@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 # Diet Changes
@@ -101,10 +102,10 @@ class Patient(models.Model):
     email = models.CharField(max_length=50, blank=True, null=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     primary_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=True, null=True)
-    id = models.CharField(max_length=50, primary_key=True)
+
 
     def __str__(self):
-        return self.last_name + ", " + self.first_name + " ID: " + self.id
+        return self.last_name + ", " + self.first_name + " ID: " + str(self.id)
 
     class Meta:
         ordering = ["last_name", "first_name"]
@@ -145,6 +146,7 @@ class Visit(models.Model):
     diagnosis = models.ManyToManyField(Diagnosis)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     treatment = models.ManyToManyField(Treatment, blank=True, null=True)
+    id = models.CharField(max_length=50, primary_key=True, default=str(uuid.uuid4()))
 
     def __str__(self):
         return "Visit | " + self.date.__str__() + ' | ' + self.patient.last_name + ", " + self.patient.first_name
