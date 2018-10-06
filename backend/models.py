@@ -48,7 +48,7 @@ class Doctor(models.Model):
     twilio_number = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return "Dr. " + self.first_name + " " + self.last_name + " ID: " + self.id
+        return "Dr. " + self.first_name + " " + self.last_name + " ID: " + str(self.id)
 
     class Meta:
         ordering = ["last_name", "first_name"]
@@ -63,6 +63,12 @@ class Diagnosis(models.Model):
 
     def __str__(self):
         return self.diagnosis_name
+
+    def to_dict(self):
+        return  {
+            'name': self.diagnosis_name,
+            'description': self.diagnosis_description
+        }
 
     class Meta:
         ordering = ["diagnosis_name"]

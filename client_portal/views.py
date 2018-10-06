@@ -8,10 +8,7 @@ def patient_information(request, slug):
         'patient': {
             'name': visit.patient.last_name + ", " + visit.patient.first_name
         },
-        'diagnosis': {
-            'name': visit.diagnosis.diagnosis_name + "\n",
-            'description': visit.diagnosis.diagnosis_description
-        },
+        'diagnosis': [d.to_dict() for d in visit.diagnosis.all()],
         'treatment': {
             'prescription': visit.treatment.prescription + "\nHow many days of treatment: " + visit.treatment.duration +
             "\nDosage: " + visit.treatment.dosage + "\nTime Between Usage: " + visit.treatment.cycle
